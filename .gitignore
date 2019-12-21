@@ -1,0 +1,10 @@
+#folders
+node_modules
+bin
+.vscode
+
+#files
+.env
+yarn*
+*.pem
+*.key
