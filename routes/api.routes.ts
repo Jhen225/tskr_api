@@ -1,10 +1,11 @@
-const api_router = require('express').Router();
-const v1_routes = require('./v1/v1.routes');
+import { Router } from 'express';
+import v1Routes from './v1/v1.routes';
+const apiRouter = Router();
 
-api_router.get('/', (req:any, res:any) => {
+apiRouter.get('/', (req, res) => {
     res.json({ success: true, message: 'api' });
 });
 
-api_router.use('/v1', v1_routes);
+apiRouter.use('/v1', v1Routes);
 
-module.exports = api_router;
+export default apiRouter;

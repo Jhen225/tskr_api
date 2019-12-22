@@ -1,11 +1,11 @@
 require('dotenv').config();
-const PORT = process.env.PORT || 3000;
-const express = require('express');
-const ip = require('ip');
-const morgan = require('morgan');
-const api_routes = require('./routes/api.routes');
-const app_logger_module = require('./utils/logger');
-const app_logger = app_logger_module.getLogger('service');
+import express from 'express';
+import ip from 'ip';
+import morgan from 'morgan';
+import apiRoutes from './routes/api.routes';
+import { appLogger } from './utils/logger';
+
+const PORT = process.env.PORT || '3000';
 const app = express();
 
 require('./common/sequelize');
@@ -15,14 +15,12 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Register API router
-app.use('/api', api_routes);
+app.use('/api', apiRoutes);
 
-
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Successfully started application on ${ip.address()}:${PORT}`);
-    app_logger.info(`Successfully started application on ${ip.address()}:${PORT}`);
-})
-.on('error', () => {
-    console.log(`Successfully started application on ${ip.address()}:${PORT}`);
-    app_logger.fatal(`Successfully started application on ${ip.address()}:${PORT}`);
+app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`Successfully started application on http://${ip.address()}:${PORT}`);
+    appLogger.info(`Successfully started application on http://${ip.address()}:${PORT}`);
+}).on('error', () => {
+    console.log(`Successfully started application on http://${ip.address()}:${PORT}`);
+    appLogger.fatal(`Successfully started application on http://${ip.address()}:${PORT}`);
 });

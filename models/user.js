@@ -1,40 +1,49 @@
 'use strict';
-const uuid = require('uuid/v4');
-const DataTypes = require('sequelize');
-const sequelize = require('../common/sequelize');
+import uuid from 'uuid/v4';
+import * as DataTypes from 'sequelize';
+import sequelize from '../common/sequelize';
 
-const user = sequelize.define('user', {
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: uuid
+const user = sequelize.define(
+    'user',
+    {
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: DataTypes.UUID,
+            defaultValue: uuid,
+        },
+        firstname: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
+        lastname: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
+        email: DataTypes.STRING,
+        username: DataTypes.STRING,
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        addressID: {
+            field: 'address_id',
+            type: DataTypes.UUID,
+        },
+        phonenumber: DataTypes.STRING,
+        birthday: DataTypes.DATE,
+        roleID: {
+            field: 'role_id',
+            type: DataTypes.UUID,
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE,
     },
-    firstname: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    lastname: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    email: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    address_id: DataTypes.UUID,
-    phonenumber: DataTypes.STRING,
-    birthday: DataTypes.DATE,
-    role_id: DataTypes.UUID,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-  }, { freezeTableName: true });
+    { freezeTableName: true },
+);
 
-
-  role.associate = function(models) {
-  // associations can be defined here
+user.associate = function(models) {
+    // associations can be defined here
 };
 
-module.exports = role;
+module.exports = user;

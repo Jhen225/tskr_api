@@ -1,10 +1,12 @@
-const v1_router = require('express').Router();
-const task_routes = require('./task.routes');
+import { Router } from 'express';
+import taskRoutes from './task.routes';
 
-v1_router.get('/', (req:any, res:any) => {
+const v1Router = Router();
+
+v1Router.get('/', (req, res) => {
     res.json({ success: true, message: 'v1' });
 });
 
-v1_router.use('/tasks', task_routes);
+v1Router.use('/tasks', taskRoutes);
 
-module.exports = v1_router;
+export default v1Router;

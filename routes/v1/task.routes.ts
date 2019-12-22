@@ -1,10 +1,11 @@
 import { GetTasks, GetTask, NewTask, UpdateTask, DeleteTask } from '../../controllers/task.controller';
-const task_router = require('express').Router();
+import { Router } from 'express';
+const taskRouter = Router();
 
-task_router.get('/', GetTasks);
-task_router.get('/:id', GetTask);
-task_router.post('/', NewTask);
-task_router.put('/:id', UpdateTask);
-task_router.delete('/:id', DeleteTask);
+taskRouter.get('/', GetTasks);
+taskRouter.get('/:id', GetTask);
+taskRouter.post('/', NewTask);
+taskRouter.put('/:id', UpdateTask);
+taskRouter.delete('/:id', DeleteTask);
 
-module.exports = task_router;
+export default taskRouter;
