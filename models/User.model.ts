@@ -1,31 +1,29 @@
 import User from './interfaces/User';
-import users from './user';
-import { appLogger } from '../utils/logger';
+import user from './user';
 
 export default class UserModel {
-    getUsers(params): Array<object> {
-        return users.findAll({
+    getUsers(params: object): Array<object> {
+        return user.findAll({
             where: { ...params },
         });
     }
 
     getUser(id: string): Array<object> {
-        return users.findAll({
+        return user.findAll({
             where: { id: id },
         });
     }
 
-    newUser(user: User): Array<object> {
-        return users.create({ ...user });
+    newUser(newUser: User): Array<object> {
+        return user.create({ ...newUser });
     }
 
-    updateUser(id: string, user: User): Array<object> {
-        appLogger.debug(`Updating user: ${id} with data: ${user}`);
-        return users.update(
+    updateUser(id: string, update: User): Array<object> {
+        return user.update(
             {
                 id: id,
                 updatedAt: Date.now(),
-                ...user,
+                ...update,
             },
             {
                 where: { id: id },
@@ -34,7 +32,7 @@ export default class UserModel {
     }
 
     removeUser(id: string): Array<object> {
-        return users.destroy({
+        return user.destroy({
             where: { id: id },
         });
     }

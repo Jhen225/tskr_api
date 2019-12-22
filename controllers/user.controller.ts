@@ -1,5 +1,3 @@
-import { stringify } from 'querystring';
-
 import UserModel from '../models/User.model';
 import { Request, Response } from 'express';
 import { isUUID } from '../utils/validation';
@@ -20,7 +18,8 @@ export const GetUser = async (req: Request, res: Response): Promise<Response> =>
     appLogger.debug(`Getting user: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const result = await new UserModel().getUser(id);
         if (!result || result == null || result.length == 0) return res.status(404).json({ success: false });
@@ -31,10 +30,10 @@ export const GetUser = async (req: Request, res: Response): Promise<Response> =>
 };
 
 export const NewUser = async (req: Request, res: Response): Promise<Response> => {
-    appLogger.debug(`Adding user: ${JSON.stringify(result)}`);
+    appLogger.debug(`Adding user: ${JSON.stringify(req.body.user)}`);
     try {
         const { user } = req.body;
-        if (!user) return res.status(400).json({ success: false });
+        if (!user || !user.address || !user.role) return res.status(400).json({ success: false });
         const result = await new UserModel().newUser(user);
         if (result) return res.status(201).json({ success: true });
         else return res.status(400).json({ success: false });
@@ -44,7 +43,7 @@ export const NewUser = async (req: Request, res: Response): Promise<Response> =>
 };
 
 export const UpdateUser = async (req: Request, res: Response): Promise<Response> => {
-    appLogger.debug(`Updating user: ${req.params.id} with data: ${JSON.stringify(result)}`);
+    appLogger.debug(`Updating user: ${req.params.id} with data: ${JSON.stringify(req.body.user)}`);
     try {
         const { id } = req.params;
         if (!id || !isUUID(id)) return res.status(400).json({ success: false });

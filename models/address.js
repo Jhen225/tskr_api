@@ -3,8 +3,8 @@ import uuid from 'uuid/v4';
 import * as DataTypes from 'sequelize';
 import sequelize from '../common/sequelize';
 
-const role = sequelize.define(
-    'role',
+const address = sequelize.define(
+    'address',
     {
         id: {
             allowNull: false,
@@ -12,22 +12,21 @@ const role = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: uuid,
         },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING,
-        },
-        description: {
-            allowNull: false,
-            type: DataTypes.TEXT,
-        },
+        street: DataTypes.STRING,
+        street2: DataTypes.STRING,
+        city: DataTypes.STRING,
+        state: DataTypes.STRING,
+        country: DataTypes.STRING,
+        province: DataTypes.STRING,
+        postal: DataTypes.STRING,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     },
     { freezeTableName: true },
 );
 
-role.associate = function(models) {
+address.associate = function(models) {
     // associations can be defined here
 };
 
-export default role;
+export default address;

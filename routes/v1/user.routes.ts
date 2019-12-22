@@ -2,7 +2,7 @@ import { GetUsers, GetUser, NewUser, UpdateUser, DeleteUser } from '../../contro
 import { Router } from 'express';
 const userRouter = Router();
 
-userRouter.get('/', GetUser);
+userRouter.get('/', GetUsers);
 userRouter.get('/:id', GetUser);
 userRouter.post('/', NewUser);
 userRouter.put('/:id', UpdateUser);

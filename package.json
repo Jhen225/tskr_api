@@ -12,6 +12,7 @@
     "db:create": "./node_modules/.bin/sequelize db:create tskr"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.2",

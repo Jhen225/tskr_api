@@ -2,6 +2,7 @@
 import uuid from 'uuid/v4';
 import * as DataTypes from 'sequelize';
 import sequelize from '../common/sequelize';
+import bcryptjs from 'bcryptjs';
 
 const user = sequelize.define(
     'user',
@@ -41,6 +42,14 @@ const user = sequelize.define(
     },
     { freezeTableName: true },
 );
+
+const createHash = password => bcryptjs.genSalt(ROUNDS).then(bcryptjs.hash(password, salt));
+
+user.beforeCreate(async user => {
+    user.addressID = await NewAddress(user.address);
+    user.roleID = await NewRole(user.role);
+    user.password = await createHash(user.password);
+});
 
 user.associate = function(models) {
     // associations can be defined here

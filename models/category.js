@@ -3,21 +3,20 @@ import uuid from 'uuid/v4';
 import * as DataTypes from 'sequelize';
 import sequelize from '../common/sequelize';
 
-const role = sequelize.define(
-    'role',
+const category = sequelize.define(
+    'category',
     {
         id: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.UUID,
-            defaultValue: uuid,
+            defaultValue: uuid(),
         },
         name: {
             allowNull: false,
             type: DataTypes.STRING,
         },
         description: {
-            allowNull: false,
             type: DataTypes.TEXT,
         },
         createdAt: DataTypes.DATE,
@@ -26,8 +25,8 @@ const role = sequelize.define(
     { freezeTableName: true },
 );
 
-role.associate = function(models) {
+category.associate = function(models) {
     // associations can be defined here
 };
 
-export default role;
+export default category;
