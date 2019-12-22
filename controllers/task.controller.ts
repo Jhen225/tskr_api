@@ -18,7 +18,8 @@ export const GetTask = async (req, res): Promise<Response> => {
     appLogger.debug(`Getting task: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const result = await new TaskModel().getTask(id);
         if (!result || result == null || result.length == 0) return res.status(404).json({ success: false });
@@ -45,7 +46,8 @@ export const UpdateTask = async (req, res): Promise<Response> => {
     appLogger.debug(`Updating task: ${req.params.id} with data: ${JSON.stringify(req.body.task)}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const { task } = req.body;
         if (!task) return res.status(400).json({ success: false });
@@ -63,7 +65,8 @@ export const DeleteTask = async (req, res): Promise<Response> => {
     appLogger.debug(`Deleting task: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const result = await new TaskModel().removeTask(id);
         if (result) res.json({ success: true });

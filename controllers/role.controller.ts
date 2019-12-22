@@ -18,7 +18,8 @@ export const GetRole = async (req: Request, res: Response): Promise<Response> =>
     appLogger.debug(`Getting role: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
         const result = await new RoleModel().getRole(req.params);
         if (!result || result == null || result.length == 0) return res.status(404).json({ success: false });
         return res.json({ success: true, role: result });
@@ -44,7 +45,8 @@ export const UpdateRole = async (req: Request, res: Response): Promise<Response>
     appLogger.debug(`Updating role: ${req.params.id} with data: ${JSON.stringify(req.body.role)}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const { role } = req.body;
         if (!role) return res.status(400).json({ success: false });
@@ -62,7 +64,8 @@ export const DeleteRole = async (req: Request, res: Response): Promise<Response>
     appLogger.debug(`Deleting role: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const result = await new RoleModel().removeRole(id);
         if (result) res.json({ success: true });

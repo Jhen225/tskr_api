@@ -18,7 +18,8 @@ export const GetAddress = async (req: Request, res: Response): Promise<Response>
     appLogger.debug(`Getting address: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
         const result = await new AddressModel().getAddress(req.params);
         if (!result || result == null || result.length == 0) return res.status(404).json({ success: false });
         return res.json({ success: true, address: result });
@@ -44,7 +45,8 @@ export const UpdateAddress = async (req: Request, res: Response): Promise<Respon
     appLogger.debug(`Updating address: ${req.params.id} with data: ${JSON.stringify(req.body.address)}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const { address } = req.body;
         if (!address) return res.status(400).json({ success: false });
@@ -62,7 +64,8 @@ export const DeleteAddress = async (req: Request, res: Response): Promise<Respon
     appLogger.debug(`Deleting address: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
         const result = await new AddressModel().removeAddress(id);
         if (result) res.json({ success: true });
         else res.status(400).json({ success: false });

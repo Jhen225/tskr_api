@@ -18,7 +18,8 @@ export const GetCategory = async (req: Request, res: Response): Promise<Response
     appLogger.debug(`Getting category: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
         const result = await new CategoryModel().getCategory(req.params);
         if (!result || result == null || result.length == 0) return res.status(404).json({ success: false });
         return res.json({ success: true, category: result });
@@ -44,7 +45,8 @@ export const UpdateCategory = async (req: Request, res: Response): Promise<Respo
     appLogger.debug(`Updating category: ${req.params.id} with data: ${JSON.stringify(req.body.category)}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const { category } = req.body;
         if (!category) return res.status(400).json({ success: false });
@@ -62,7 +64,8 @@ export const DeleteCategory = async (req: Request, res: Response): Promise<Respo
     appLogger.debug(`Deleting category: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
         const result = await new CategoryModel().removeCategory(id);
         if (result) res.json({ success: true });
         else res.status(400).json({ success: false });

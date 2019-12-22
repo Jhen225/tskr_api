@@ -46,7 +46,8 @@ export const UpdateUser = async (req: Request, res: Response): Promise<Response>
     appLogger.debug(`Updating user: ${req.params.id} with data: ${JSON.stringify(req.body.user)}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const { user } = req.body;
         if (!user) return res.status(400).json({ success: false });
@@ -64,7 +65,8 @@ export const DeleteUser = async (req: Request, res: Response): Promise<Response>
     appLogger.debug(`Deleting user: ${req.params.id}`);
     try {
         const { id } = req.params;
-        if (!id || !isUUID(id)) return res.status(400).json({ success: false });
+        if (!id || !isUUID(id))
+            return res.status(400).json({ success: false, error: `id either missing or not valid` });
 
         const result = await new UserModel().removeUser(id);
         if (result) res.json({ success: true });
