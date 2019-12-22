@@ -46,4 +46,4 @@ user.associate = function(models) {
     // associations can be defined here
 };
 
-module.exports = user;
+export default user;

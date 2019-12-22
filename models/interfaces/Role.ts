@@ -1,8 +1,7 @@
-export default interface Task {
+export default interface Role {
     id: string;
+    name: string;
     description: string;
-    status: string;
-    completedAt?: Date;
     createdAt?: Date;
     updatedAt?: Date;
 }

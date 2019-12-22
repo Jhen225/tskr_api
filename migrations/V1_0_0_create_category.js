@@ -2,7 +2,7 @@
 const uuid = require('uuid/v4');
 module.exports = {
     up: (queryInterface, DataTypes) => {
-        return queryInterface.createTable('role', {
+        return queryInterface.createTable('category', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -21,6 +21,6 @@ module.exports = {
         });
     },
     down: (queryInterface, DataTypes) => {
-        return queryInterface.dropTable('role');
+        return queryInterface.dropTable('category');
     },
 };
